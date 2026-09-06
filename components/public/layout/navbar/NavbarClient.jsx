@@ -325,6 +325,9 @@ export default function NavbarClient({ categoryTree }) {
    * usePathname() returns "/" for the home page.
    */
   const isHome = pathname === "/";
+  console.log('isHome ', isHome);
+  console.log('pathName ', pathname);
+  
 
   /*
    * Close all navigation menus
