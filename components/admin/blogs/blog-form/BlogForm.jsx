@@ -171,8 +171,8 @@ export default function BlogForm({ initialData = null }) {
         );
       }
 
-      router.push("/admin/blogs");
       router.refresh();
+      router.push("/admin/blogs");
     } catch (err) {
       setError(err.message);
     } finally {
