@@ -1,3 +1,294 @@
+// // components/layout/NavbarClient.jsx
+
+// "use client";
+
+// import { useEffect, useRef, useState } from "react";
+// import Image from "next/image";
+// import Link from "next/link";
+// import { Menu, Search, X } from "lucide-react";
+// import { usePathname } from "next/navigation";
+
+// import Container from "@/components/shared/Container";
+// import Text from "@/components/shared/Text";
+// import ThemeToggle from "@/components/shared/ThemeToggle";
+// import SearchBlog from "@/components/public/blog/SearchBlog";
+
+// import NavbarItem from "./NavbarItem";
+// import CategoryDropdown from "./CategoryDropdown";
+// import { navs } from "./Navbar.config";
+
+// import logo from "@/public/images/IIFAPS-logo.webp";
+
+// export default function NavbarClient({ categoryTree }) {
+//   const pathname = usePathname();
+//   const menuRef = useRef(null);
+
+//   const [isMenuOpen, setIsMenuOpen] = useState(false);
+//   const [isSearchOpen, setIsSearchOpen] = useState(false);
+//   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+//   const [activeParent, setActiveParent] = useState(null);
+//   // const [isScrolled, setIsScrolled] = useState(false);
+
+//   const isHome = pathname === "/" || pathname === "";
+
+//   /* =========================
+//      Navbar Scroll
+//   ========================= */
+//   // useEffect(() => {
+//   //   const handleScroll = () => {
+//   //     setIsScrolled(window.scrollY > 80);
+//   //   };
+
+//   //   handleScroll();
+
+//   //   window.addEventListener("scroll", handleScroll, { passive: true });
+
+//   //   return () => {
+//   //     window.removeEventListener("scroll", handleScroll);
+//   //   };
+//   // }, []);
+
+//   /* =========================
+//      Close All Menus
+//   ========================= */
+//   const closeMenus = () => {
+//     setIsMenuOpen(false);
+//     setIsCategoryOpen(false);
+//     setActiveParent(null);
+//   };
+
+//   /* =========================
+//      Route Change
+//   ========================= */
+//   useEffect(() => {
+//     closeMenus();
+//   }, [pathname]);
+
+//   /* =========================
+//      Outside Click
+//   ========================= */
+//   useEffect(() => {
+//     if (!isMenuOpen && !isCategoryOpen) return;
+
+//     const handleClickOutside = (event) => {
+//       if (!menuRef.current?.contains(event.target)) {
+//         closeMenus();
+//       }
+//     };
+
+//     document.addEventListener("mousedown", handleClickOutside);
+
+//     return () => {
+//       document.removeEventListener("mousedown", handleClickOutside);
+//     };
+//   }, [isMenuOpen, isCategoryOpen]);
+
+//   /* =========================
+//      Active Route
+//   ========================= */
+//   const isActive = (path) => {
+//     if (path === "/") {
+//       return pathname === "/";
+//     }
+
+//     return pathname === path || pathname.startsWith(`${path}/`);
+//   };
+
+//   /* =========================
+//      Menu Toggle
+//   ========================= */
+//   const toggleMenu = () => {
+//     setIsCategoryOpen(false);
+//     setActiveParent(null);
+//     setIsMenuOpen((prev) => !prev);
+//   };
+
+//   /* =========================
+//      Category Toggle
+//   ========================= */
+//   const toggleCategories = () => {
+//     setIsMenuOpen(false);
+//     setIsCategoryOpen((prev) => !prev);
+//   };
+
+//   /* =========================
+//      Parent Category
+//   ========================= */
+//   const handleParentClick = (parentId) => {
+//     setActiveParent((prev) => (prev === parentId ? null : parentId));
+//   };
+
+//   return (
+//     <>
+//       {/* =========================
+//           Navbar
+//       ========================= */}
+//       <nav
+//         ref={menuRef}
+//         aria-label="Main Navigation"
+//         className={`
+//           z-50 w-full
+//           transition-all duration-200 ease-in
+//           ${
+//             isHome
+//               ? isMenuOpen || isCategoryOpen
+//                 ? "absolute top-0 left-0 bg-transparent/60 shadow-lg"
+//                 : "absolute top-0 left-0 bg-transparent text-foreground"
+//               : "relative bg-background shadow-lg"
+//           }
+//         `}
+//       >
+//         {/* =========================
+//             Header
+//         ========================= */}
+//         <Container>
+//           <div className="flex w-full items-center justify-between py-2">
+//             {/* Logo */}
+//             <div className="flex min-w-0 flex-1 items-center gap-2 md:gap-3">
+//               <Link href="/" className="shrink-0">
+//                 <Image
+//                   src={logo}
+//                   alt="IIFAPS Logo"
+//                   width={40}
+//                   height={40}
+//                   priority
+//                 />
+//               </Link>
+
+//               <Link href="/" className="min-w-0">
+//                 <Text
+//                   variant="normalText"
+//                   className={`
+//                     leading-tight
+//                     font-semibold
+//                     text-[10px]
+//                     sm:text-xs
+//                     md:w-70
+//                     md:text-sm
+//                     lg:text-base
+//                     hidden md:block
+//                     text-white dark:text-white/70
+//                     ${isHome || "text-foreground"}
+//                   `}
+//                 >
+//                   INTERNATIONAL INSTITUTE FOR ADVANCED POLITICAL STUDIES
+//                 </Text>
+//               </Link>
+//             </div>
+
+//             {/* Actions */}
+//             <div className="ml-3 flex shrink-0 items-center gap-2 md:gap-3">
+//               {/* Categories */}
+//               <button
+//                 type="button"
+//                 onClick={toggleCategories}
+//                 className={`
+//                   flex h-10 items-center rounded-md border border-border px-4
+//                   transition
+//                   hover:bg-gray-800 hover:text-white ${isHome && "text-white"}
+//                 `}
+//               >
+//                 Categories
+//               </button>
+
+//               {/* Theme */}
+//               <ThemeToggle />
+
+//               {/* Search */}
+//               <button
+//                 type="button"
+//                 onClick={() => setIsSearchOpen(true)}
+//                 aria-label="Open Search"
+//                 className={`
+//                   flex h-10 w-10 items-center justify-center rounded-md border
+//                   transition
+//                   hover:bg-gray-800 hover:text-white
+//                    ${isHome && "text-white"}
+//                 `}
+//               >
+//                 <Search size={18} />
+//               </button>
+
+//               {/* Menu */}
+//               <button
+//                 type="button"
+//                 onClick={toggleMenu}
+//                 aria-expanded={isMenuOpen}
+//                 aria-controls="mobile-menu"
+//                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+//                 className={`
+//                   flex h-10 w-10 items-center justify-center rounded-md border
+//                   transition
+//                   hover:bg-gray-800 hover:text-white ${isHome && "text-white"}
+//                 `}
+//               >
+//                 {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
+//               </button>
+//             </div>
+//           </div>
+//         </Container>
+
+//         {/* =========================
+//             Mobile Menu
+//         ========================= */}
+//         <div
+//           id="mobile-menu"
+//           className={`
+//             absolute top-full left-0 w-full
+//             max-h-[calc(100vh-120px)]
+//             overflow-y-auto
+//             bg-background/60
+//             shadow-2xl
+//             transition-all duration-300 ease-in-out
+//             ${
+//               isMenuOpen
+//                 ? "visible translate-y-0 opacity-100"
+//                 : "invisible -translate-y-2 opacity-0"
+//             }
+//           `}
+//         >
+//           <Container>
+//             <ul className="flex flex-col py-4">
+//               {navs.map((nav) => (
+//                 <NavbarItem key={nav.id} item={nav} isActive={isActive} />
+//               ))}
+//             </ul>
+//           </Container>
+//         </div>
+
+//         {/* =========================
+//             Category Dropdown
+//         ========================= */}
+//         <CategoryDropdown
+//           isOpen={isCategoryOpen}
+//           categoryTree={categoryTree}
+//           activeParent={activeParent}
+//           onParentClick={handleParentClick}
+//           pathname={pathname}
+//         />
+//       </nav>
+
+//       {/* =========================
+//           Backdrop
+//       ========================= */}
+//       {(isMenuOpen || isCategoryOpen) && (
+//         <div
+//           className="fixed inset-0 z-40 bg-transparent/60 backdrop-blur-sm"
+//           onClick={closeMenus}
+//         />
+//       )}
+
+//       {/* =========================
+//           Search
+//       ========================= */}
+//       <SearchBlog
+//         isOpen={isSearchOpen}
+//         onClose={() => setIsSearchOpen(false)}
+//       />
+//     </>
+//   );
+// }
+
 // components/layout/NavbarClient.jsx
 
 "use client";
@@ -27,46 +318,34 @@ export default function NavbarClient({ categoryTree }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [activeParent, setActiveParent] = useState(null);
-  // const [isScrolled, setIsScrolled] = useState(false);
 
-  const isHome = pathname === "/" || pathname === "";
+  /*
+   * Root route
+   *
+   * usePathname() returns "/" for the home page.
+   */
+  const isHome = pathname === "/";
 
-  /* =========================
-     Navbar Scroll
-  ========================= */
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setIsScrolled(window.scrollY > 80);
-  //   };
-
-  //   handleScroll();
-
-  //   window.addEventListener("scroll", handleScroll, { passive: true });
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
-
-  /* =========================
-     Close All Menus
-  ========================= */
+  /*
+   * Close all navigation menus
+   */
   const closeMenus = () => {
     setIsMenuOpen(false);
     setIsCategoryOpen(false);
     setActiveParent(null);
   };
 
-  /* =========================
-     Route Change
-  ========================= */
+  /*
+   * Close menus when route changes
+   */
   useEffect(() => {
     closeMenus();
+    setIsSearchOpen(false);
   }, [pathname]);
 
-  /* =========================
-     Outside Click
-  ========================= */
+  /*
+   * Close menus when clicking outside navbar
+   */
   useEffect(() => {
     if (!isMenuOpen && !isCategoryOpen) return;
 
@@ -83,9 +362,9 @@ export default function NavbarClient({ categoryTree }) {
     };
   }, [isMenuOpen, isCategoryOpen]);
 
-  /* =========================
-     Active Route
-  ========================= */
+  /*
+   * Active route
+   */
   const isActive = (path) => {
     if (path === "/") {
       return pathname === "/";
@@ -94,56 +373,60 @@ export default function NavbarClient({ categoryTree }) {
     return pathname === path || pathname.startsWith(`${path}/`);
   };
 
-  /* =========================
-     Menu Toggle
-  ========================= */
+  /*
+   * Menu toggle
+   */
   const toggleMenu = () => {
     setIsCategoryOpen(false);
     setActiveParent(null);
     setIsMenuOpen((prev) => !prev);
   };
 
-  /* =========================
-     Category Toggle
-  ========================= */
+  /*
+   * Category toggle
+   */
   const toggleCategories = () => {
     setIsMenuOpen(false);
+    setActiveParent(null);
     setIsCategoryOpen((prev) => !prev);
   };
 
-  /* =========================
-     Parent Category
-  ========================= */
+  /*
+   * Parent category toggle
+   */
   const handleParentClick = (parentId) => {
     setActiveParent((prev) => (prev === parentId ? null : parentId));
   };
 
+  /*
+   * Navbar classes
+   */
+  const navbarClassName = isHome
+    ? isMenuOpen || isCategoryOpen
+      ? "absolute top-0 left-0 bg-black/40 shadow-lg"
+      : "absolute top-0 left-0 bg-transparent"
+    : "relative bg-background shadow-lg";
+
+  /*
+   * Text color
+   */
+  const contentTextClassName = isHome ? "text-white" : "text-foreground";
+
   return (
     <>
-      {/* =========================
-          Navbar
-      ========================= */}
+      {/* Navbar */}
       <nav
         ref={menuRef}
         aria-label="Main Navigation"
         className={`
           z-50 w-full
           transition-all duration-200 ease-in
-          ${
-            isHome
-              ? isMenuOpen || isCategoryOpen
-                ? "absolute top-0 left-0 bg-transparent/60 shadow-lg"
-                : "absolute top-0 left-0 bg-transparent text-foreground"
-              : "relative bg-background shadow-lg"
-          }
+          ${navbarClassName}
         `}
       >
-        {/* =========================
-            Header
-        ========================= */}
         <Container>
           <div className="flex w-full items-center justify-between py-2">
-            {/* Logo */}
+            {/* Logo + Institute Name */}
             <div className="flex min-w-0 flex-1 items-center gap-2 md:gap-3">
               <Link href="/" className="shrink-0">
                 <Image
@@ -159,16 +442,16 @@ export default function NavbarClient({ categoryTree }) {
                 <Text
                   variant="normalText"
                   className={`
+                    hidden
                     leading-tight
                     font-semibold
                     text-[10px]
                     sm:text-xs
+                    md:block
                     md:w-70
                     md:text-sm
                     lg:text-base
-                    hidden md:block
-                    text-white dark:text-white/70
-                    ${isHome || "text-foreground"}
+                    ${contentTextClassName}
                   `}
                 >
                   INTERNATIONAL INSTITUTE FOR ADVANCED POLITICAL STUDIES
@@ -182,10 +465,13 @@ export default function NavbarClient({ categoryTree }) {
               <button
                 type="button"
                 onClick={toggleCategories}
+                aria-expanded={isCategoryOpen}
                 className={`
-                  flex h-10 items-center rounded-md border border-border px-4
+                  flex h-10 items-center rounded-md
+                  border border-border px-4
                   transition
-                  hover:bg-gray-800 hover:text-white ${isHome && "text-white"}
+                  hover:bg-gray-800 hover:text-white
+                  ${contentTextClassName}
                 `}
               >
                 Categories
@@ -200,10 +486,11 @@ export default function NavbarClient({ categoryTree }) {
                 onClick={() => setIsSearchOpen(true)}
                 aria-label="Open Search"
                 className={`
-                  flex h-10 w-10 items-center justify-center rounded-md border
+                  flex h-10 w-10 items-center justify-center
+                  rounded-md border border-border
                   transition
                   hover:bg-gray-800 hover:text-white
-                   ${isHome && "text-white"}
+                  ${contentTextClassName}
                 `}
               >
                 <Search size={18} />
@@ -217,9 +504,11 @@ export default function NavbarClient({ categoryTree }) {
                 aria-controls="mobile-menu"
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 className={`
-                  flex h-10 w-10 items-center justify-center rounded-md border
+                  flex h-10 w-10 items-center justify-center
+                  rounded-md border border-border
                   transition
-                  hover:bg-gray-800 hover:text-white ${isHome && "text-white"}
+                  hover:bg-gray-800 hover:text-white
+                  ${contentTextClassName}
                 `}
               >
                 {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -228,16 +517,14 @@ export default function NavbarClient({ categoryTree }) {
           </div>
         </Container>
 
-        {/* =========================
-            Mobile Menu
-        ========================= */}
+        {/* Mobile Menu */}
         <div
           id="mobile-menu"
           className={`
             absolute top-full left-0 w-full
             max-h-[calc(100vh-120px)]
             overflow-y-auto
-            bg-background/60
+            bg-background/95
             shadow-2xl
             transition-all duration-300 ease-in-out
             ${
@@ -256,9 +543,7 @@ export default function NavbarClient({ categoryTree }) {
           </Container>
         </div>
 
-        {/* =========================
-            Category Dropdown
-        ========================= */}
+        {/* Category Dropdown */}
         <CategoryDropdown
           isOpen={isCategoryOpen}
           categoryTree={categoryTree}
@@ -268,19 +553,20 @@ export default function NavbarClient({ categoryTree }) {
         />
       </nav>
 
-      {/* =========================
-          Backdrop
-      ========================= */}
+      {/* Backdrop */}
       {(isMenuOpen || isCategoryOpen) && (
         <div
-          className="fixed inset-0 z-40 bg-transparent/60 backdrop-blur-sm"
+          className="
+            fixed inset-0 z-40
+            bg-black/40
+            backdrop-blur-sm
+          "
           onClick={closeMenus}
+          aria-hidden="true"
         />
       )}
 
-      {/* =========================
-          Search
-      ========================= */}
+      {/* Search */}
       <SearchBlog
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
