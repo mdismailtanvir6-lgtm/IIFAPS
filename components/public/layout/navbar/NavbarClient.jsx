@@ -375,7 +375,7 @@ export default function NavbarClient({ categoryTree }) {
               ? isOverlayOpen
                 ? "absolute top-0 left-0 bg-black/40 shadow-lg"
                 : "absolute top-0 left-0 bg-transparent"
-              : "relative bg-background shadow-lg"
+              : "absolute bg-transparent shadow-lg"
           }
         `}
       >
