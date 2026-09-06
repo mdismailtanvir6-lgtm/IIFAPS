@@ -15,7 +15,7 @@ export default function NavbarActions({
   // const pathname = usePathname();
   // const isHome = pathname === "/";
   const { isHome } = useNavigation();
-  const textColor = isHome ? "text-white" : "text-foreground";
+  const textColor = isHome && "text-white";
 
   return (
     <div className="ml-3 flex shrink-0 items-center gap-2 md:gap-3">
