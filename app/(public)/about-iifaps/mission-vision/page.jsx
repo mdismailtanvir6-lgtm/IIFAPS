@@ -4,10 +4,10 @@ import Text from "@/components/shared/Text";
 
 const page = () => {
   return (
-    <section>
+    <section className="py-16.25">
       <Container>
         {/* ==== mission == */}
-        <div className="">
+        <div>
           <Text variant="sectionHeading" className="mx-auto text-center">
             Mission
           </Text>

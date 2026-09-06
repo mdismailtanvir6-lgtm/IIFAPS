@@ -11,7 +11,7 @@ import {
 
 const page = () => {
   return (
-    <section>
+    <section className="py-16.25">
       <Container>
         {/* === what we do == */}
         <div className="">

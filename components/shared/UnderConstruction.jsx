@@ -11,7 +11,7 @@ import Text from "@/components/shared/Text";
 
 export default function UnderConstruction() {
   return (
-    <section className="relative overflow-hidden py-5">
+    <section className="relative overflow-hidden pt-32 pb-16">
       <Container>
         <div className="flex min-h-[calc(100vh-12rem)] items-center justify-center">
           <div className="relative w-full max-w-xl rounded-3xl border border-border bg-background/80 p-8 text-center shadow-xl backdrop-blur md:p-10">

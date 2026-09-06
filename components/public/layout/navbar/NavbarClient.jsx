@@ -367,15 +367,13 @@ export default function NavbarClient({ categoryTree }) {
       <nav
         ref={menuRef}
         aria-label="Main Navigation"
-        className={`
-          z-50 w-full
-          transition-all duration-200 ease-in
+        className={`absolute top-0 left-0 z-50 w-full transition-all duration-200 ease-in 
           ${
             isHome
               ? isOverlayOpen
-                ? "absolute top-0 left-0 bg-black/40 shadow-lg"
-                : "absolute top-0 left-0 bg-transparent"
-              : "absolute bg-transparent shadow-lg"
+                ? "bg-black/40 shadow-lg"
+                : "bg-transparent"
+              : "bg-transparent shadow-lg"
           }
         `}
       >
