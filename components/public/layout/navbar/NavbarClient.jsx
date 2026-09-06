@@ -409,12 +409,30 @@ export default function NavbarClient({ categoryTree }) {
   //     : "absolute top-0 left-0 bg-transparent"
   //   : "relative bg-background shadow-lg";
 
-  const isHomeClass = isHome && "absolute top-0 left-0 bg-transparent";
-  const menuOpenClass =
-    (isMenuOpen || isCategoryOpen) &&
-    "absolute top-0 left-0 bg-black/40 shadow-lg";
-  const navbarClassName = `${isHomeClass} ${menuOpenClass} relative bg-background shadow-lg`;
+  // const isHomeClass = isHome && "absolute top-0 left-0 bg-transparent";
+  // const menuOpenClass =
+  //   (isMenuOpen || isCategoryOpen) &&
+  //   "absolute top-0 left-0 bg-black/40 shadow-lg";
+  // const navbarClassName = `${isHomeClass} ${menuOpenClass} relative bg-background shadow-lg`;
+  const isOverlayOpen = isMenuOpen || isCategoryOpen;
 
+  const navbarPosition = isHome ? "absolute top-0 left-0" : "relative";
+
+  const navbarBackground = isHome
+    ? isOverlayOpen
+      ? "bg-black/40 shadow-lg"
+      : "bg-transparent"
+    : "bg-background shadow-lg";
+
+  const navbarClassName = `
+  z-50
+  w-full
+  transition-all
+  duration-200
+  ease-in
+  ${navbarPosition}
+  ${navbarBackground}
+`;
 
   /*
    * Text color
@@ -424,7 +442,7 @@ export default function NavbarClient({ categoryTree }) {
   return (
     <>
       {/* Navbar */}
-      <nav
+      {/* <nav
         ref={menuRef}
         aria-label="Main Navigation"
         className={`
@@ -432,6 +450,11 @@ export default function NavbarClient({ categoryTree }) {
           transition-all duration-200 ease-in
           ${navbarClassName}
         `}
+      > */}
+      <nav
+        ref={menuRef}
+        aria-label="Main Navigation"
+        className={navbarClassName}
       >
         <Container>
           <div className="flex w-full items-center justify-between py-2">
