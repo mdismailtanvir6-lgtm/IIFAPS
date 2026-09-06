@@ -647,14 +647,23 @@ export default function NavbarClient({ categoryTree }) {
   /*
    * Sync isHome with pathname
    */
+  // useEffect(() => {
+  //   setIsHome(pathname === "/");
+
+  //   // Close all menus when route changes
+  //   closeMenus();
+
+  //   // Close search when route changes
+  //   setIsSearchOpen(false);
+  // }, [pathname]);
   useEffect(() => {
-    setIsHome(pathname === "/");
+    const pathname = "/";
+    const navigation = performance.getEntriesByType("navigation")[0];
 
-    // Close all menus when route changes
-    closeMenus();
-
-    // Close search when route changes
-    setIsSearchOpen(false);
+    console.log("========== NAVBAR ==========");
+    console.log("pathname:", pathname);
+    console.log("navigation type:", navigation?.type);
+    console.log("============================");
   }, [pathname]);
 
   console.log("pathname:", pathname);
