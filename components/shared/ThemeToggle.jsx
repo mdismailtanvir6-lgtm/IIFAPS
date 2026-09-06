@@ -5,13 +5,13 @@
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { usePathname } from "next/navigation";
+// import { usePathname } from "next/navigation";
+import { useNavigation } from "@/components/providers/NavigationProvider";
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const pathname = usePathname();
-  const isHome = pathname === "/";
+  const { isHome } = useNavigation();
 
   useEffect(() => {
     setMounted(true);

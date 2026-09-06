@@ -2,11 +2,16 @@
 
 import { ThemeProvider } from "./ThemeProvider";
 import { ScrollProvider } from "./ScrollProvider";
+import { NavigationProvider } from "./NavigationProvider";
 
 export function Providers({ children }) {
   return (
     <ThemeProvider>
-      <ScrollProvider className="h-screen">{children}</ScrollProvider>
+      <NavigationProvider>
+        <ScrollProvider className="h-screen">
+          {children}
+        </ScrollProvider>
+      </NavigationProvider>
     </ThemeProvider>
   );
 }

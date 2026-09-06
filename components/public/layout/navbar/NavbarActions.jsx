@@ -2,6 +2,7 @@ import { Menu, Search, X } from "lucide-react";
 
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import { usePathname } from "next/navigation";
+import { useNavigation } from "@/components/providers/NavigationProvider";
 
 export default function NavbarActions({
   // isHome,
@@ -11,8 +12,9 @@ export default function NavbarActions({
   onCategoryToggle,
   onSearchOpen,
 }) {
-    const pathname = usePathname();
-    const isHome = pathname === "/";
+  // const pathname = usePathname();
+  // const isHome = pathname === "/";
+  const { isHome } = useNavigation();
   const textColor = isHome ? "text-white" : "text-foreground";
 
   return (
@@ -62,11 +64,7 @@ export default function NavbarActions({
           ${textColor}
         `}
       >
-        {isMenuOpen ? (
-          <X size={18} />
-        ) : (
-          <Menu size={18} />
-        )}
+        {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
       </button>
     </div>
   );
