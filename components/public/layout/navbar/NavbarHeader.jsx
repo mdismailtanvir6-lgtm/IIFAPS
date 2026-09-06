@@ -25,7 +25,7 @@ export default function NavbarHeader({
                 hidden leading-tight font-semibold
                 text-[10px] sm:text-xs md:block md:w-70
                 md:text-sm lg:text-base
-                ${isHome ? "text-white" : "text-foreground"}
+                ${isHome && "text-white"}
               `}
             >
               INTERNATIONAL INSTITUTE FOR ADVANCED POLITICAL STUDIES
