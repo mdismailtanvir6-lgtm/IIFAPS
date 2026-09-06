@@ -10,7 +10,8 @@ import { cn } from "@/utils/cn";
 import Button from "@/components/shared/Button";
 import DeleteBlogButton from "@/components/admin/blogs/blog-action/DeleteBlogButton";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const statusStyles = {
   published: "bg-green-50 text-green-700 border-green-200",
@@ -19,8 +20,8 @@ const statusStyles = {
 
 export default async function AdminBlogsPage() {
   const [publishedRes, draftRes] = await Promise.all([
-    getBlogs({ limit: 50, status: "published" }),
-    getBlogs({ limit: 50, status: "draft" }),
+    getBlogs({ limit: 15, status: "published" }),
+    getBlogs({ limit: 15, status: "draft" }),
   ]);
 
   const published = publishedRes.blogs;

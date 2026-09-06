@@ -53,6 +53,7 @@ export async function PUT(request, { params }) {
     revalidatePath("/admin/blogs");
 
     // Public blog pages
+    revalidatePath("/");
     revalidatePath("/blogs");
 
     return NextResponse.json({ updatedBlog });
@@ -83,13 +84,14 @@ export async function DELETE(request, { params }) {
     }
     const blogId = blog._id.toString();
 
-
     await deleteBlog(blogId);
     // Admin pages
     revalidatePath("/admin/blogs");
 
     // Public blog pages
+    revalidatePath("/");
     revalidatePath("/blogs");
+    
     return NextResponse.json({ message: "Blog deleted successfully" });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
