@@ -1,15 +1,18 @@
 import { Menu, Search, X } from "lucide-react";
 
 import ThemeToggle from "@/components/shared/ThemeToggle";
+import { usePathname } from "next/navigation";
 
 export default function NavbarActions({
-  isHome,
+  // isHome,
   isMenuOpen,
   isCategoryOpen,
   onMenuToggle,
   onCategoryToggle,
   onSearchOpen,
 }) {
+    const pathname = usePathname();
+    const isHome = pathname === "/";
   const textColor = isHome ? "text-white" : "text-foreground";
 
   return (
