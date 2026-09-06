@@ -325,9 +325,8 @@ export default function NavbarClient({ categoryTree }) {
    * usePathname() returns "/" for the home page.
    */
   const isHome = pathname === "/";
-  console.log('isHome ', isHome);
-  console.log('pathName ', pathname);
-  
+  console.log("isHome ", isHome);
+  console.log("pathName ", pathname);
 
   /*
    * Close all navigation menus
@@ -404,11 +403,18 @@ export default function NavbarClient({ categoryTree }) {
   /*
    * Navbar classes
    */
-  const navbarClassName = isHome
-    ? isMenuOpen || isCategoryOpen
-      ? "absolute top-0 left-0 bg-black/40 shadow-lg"
-      : "absolute top-0 left-0 bg-transparent"
-    : "relative bg-background shadow-lg";
+  // const navbarClassName = isHome
+  //   ? isMenuOpen || isCategoryOpen
+  //     ? "absolute top-0 left-0 bg-black/40 shadow-lg"
+  //     : "absolute top-0 left-0 bg-transparent"
+  //   : "relative bg-background shadow-lg";
+
+  const isHomeClass = isHome && "absolute top-0 left-0 bg-transparent";
+  const menuOpenClass =
+    (isMenuOpen || isCategoryOpen) &&
+    "absolute top-0 left-0 bg-black/40 shadow-lg";
+  const navbarClassName = `${isHomeClass} ${menuOpenClass} relative bg-background shadow-lg`;
+
 
   /*
    * Text color
