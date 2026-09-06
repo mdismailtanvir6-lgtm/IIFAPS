@@ -6,7 +6,6 @@ import { authOptions } from "@/lib/auth";
 import { getBlogBySlug, updateBlog, deleteBlog } from "@/services/blog.service";
 import { revalidatePath } from "next/cache";
 
-
 /* ---------------------------
    GET SINGLE BLOG
 ----------------------------*/
@@ -45,7 +44,8 @@ export async function PUT(request, { params }) {
     revalidatePath("/admin/blogs");
 
     // Public blog pages
-    revalidatePath("/blog");
+    revalidatePath("/");
+    revalidatePath("/blogs");
 
     return NextResponse.json({ blog });
   } catch (error) {
@@ -68,7 +68,8 @@ export async function DELETE(request, { params }) {
     revalidatePath("/admin/blogs");
 
     // Public blog pages
-    revalidatePath("/blog");
+    revalidatePath("/");
+    revalidatePath("/blogs");
     return NextResponse.json({ message: "Blog deleted successfully" });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

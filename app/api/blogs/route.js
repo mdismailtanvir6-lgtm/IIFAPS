@@ -74,7 +74,8 @@ export async function POST(request) {
     revalidatePath("/admin/blogs");
 
     // Public blog pages
-    revalidatePath("/blog");
+    revalidatePath("/");
+    revalidatePath("/blogs");
 
     return NextResponse.json(
       { blog },
